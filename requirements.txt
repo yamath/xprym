@@ -1,0 +1,9 @@
+gunicorn==19.6.0
+transcrypt==3.6.25
+pep8==1.7.0
+pony==0.7.1
+wheel==0.29.0
+aiofiles==0.3.1
+httptools==0.0.9
+ujson==1.35
+django==1.11

@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row">
+        {% if correct %}
+        <div class="col">
+            <p class="lead">Risposta corretta</p>
+            <p>Torna all'indice dei contenuti e continua ad esercitarti.</p>
+        </div>
+        {% else %}
+        <div class="col">
+            <p class="lead">Risposta sbagliata</p>
+            <p>Alla domanda:</p>
+            <blockquote>{{ question.text|safe }}</blockquote>
+            <p>hai risposto:</p>
+            <blockquote>{{ answer }} mentre il sito si aspettava come risposta {{ correct_answer }}</blockquote>
+            <p>
+                Se la tua risposta è giusta ma scritta male, porta pazienza e prova ad adattarti alla rigidità del programma.<br>
+                Se non capisci perché questa è la risposta giusta o se proprio non sapevi fare l'esercizio, chiedi al tuo insegnante.<br>
+                Se pensi che la risposta che il programma ricorda sia sbagliata, segnalalo con un messaggio.
+            </p>
+            <p>Ad ogni modo, torna all'indice dei contenuti e continua ad allenarti.    </p>
+        </div>
+        {% endif %}
+    </div>
+</div>

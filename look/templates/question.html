@@ -1,0 +1,63 @@
+{% load look_extras %}
+<div class="container">
+<div class="row">
+    <div class="col">
+        <h1>Esercizio <small class="text-muted">{{ question.serial }}</small></h1>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col">
+        {{ question.text|safe }}
+    </div>
+</div>
+<hr>
+<form class="row" onsubmit="active.submit();return false;">
+{% csrf_token %}
+<input type="hidden" name="required" value="{{ question.required }}">
+{% if question|isBool %}
+    <input type="hidden" name="kind" value="bool">
+    <fieldset class="col form-group">
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadiosTrue" value="true">
+                Vero
+            </label>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadiosFalse" value="false">
+                Falso
+            </label>
+        </div>
+    </fieldset>
+    <button type="submit" class="btn btn-primary">Invia</button>
+    {% elif question|isMulti %}
+    <input type="hidden" name="kind" value="multi">
+    <fieldset class="col form-group">
+        {% for option in question.options %}
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios{{ option.count }}" value="{{ option.text }}">
+                {{ option.text|safe }}
+            </label>
+        </div>
+        {% endfor %}
+    </fieldset>
+    <button type="submit" class="btn btn-primary">Invia</button>
+    {% elif question|isOpen %}
+    <input type="hidden" name="kind" value="open">
+    <div class="col form-group">
+        <label for="textInput">Risposta</label>
+        <input type="text" class="form-control" id="textInput">
+    </div>
+    <button type="submit" class="btn btn-primary">Invia</button>
+    {% else %}
+    <input type="hidden" name="kind" value="other">
+    <div class="col form-group">
+        <label for="submitInput">Ho letto tutto</label>
+        <button type="submit" class="btn btn-primary">datemi punti gratis</button>
+    </div>
+    {% endif %}
+</form>
+</div>

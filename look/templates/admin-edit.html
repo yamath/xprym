@@ -1,0 +1,27 @@
+{% ifequal action "add" %}
+<td>
+{% endifequal %}
+<form class="form-inline"
+      onsubmit="active.edit({
+                   'serial':'{{ serial }}',
+                   'attr':'{{ attr }}',
+                   'action':'{{ action }}'});
+                return false;">
+  {% csrf_token %}
+  {% if single_line %}
+  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="{{ attr }}" value="{{ value }}" style="width:100%;">
+  {% else %}
+  <textarea class="form-control mb-2 mr-sm-2 mb-sm-0" name="{{ attr }}" style="width:100%;">{{ value }}</textarea>
+  <button type="submit" class="btn btn-primary" style="width:100%;">save</button>
+  {% endif %}
+</form>
+{% ifequal action "add" %}
+</td><td>
+    <a href="/" class="btn btn-primary"
+       onclick="event.preventDefault();
+                         active.edit({
+                           'serial':'{{ serial }}',
+                           'attr':'{{ attr }}',
+                           'action':'{{ action }}'});">add</a>
+</td>
+{% endifequal %}

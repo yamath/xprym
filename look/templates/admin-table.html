@@ -1,0 +1,55 @@
+<table class="table table-striped table-hover">
+    <tbody>
+        {% for value in values %}
+        {% if simple %}
+        <tr onclick="active.load('{{ attr }}', 'html/admin-edit?action=edit&serial={{ serial }}&attr={{ attr }}');">
+        {% else %}
+        <tr onclick="active.load('admin_board', 'html/admin-model?serial={{ value.serial }}');">
+        {% endif %}
+            <td>{{ value.info }}</td>
+            {% if tomany %}
+            <td>
+                <a href="/" 
+                   class="btn btn-danger"
+                   onclick="event.preventDefault();
+                            event.stopPropagation();
+                            active.edit({
+                                'serial':'{{ serial }}',
+                                'attr':'{{ attr }}',
+                                'action':'remove',
+                                'value':'{{ value.serial }}',
+                                'csrf':'{{ csrf }}',
+                            });">
+                    remove
+                </a>
+            </td>
+            {% endif %}
+            {% if toone %}
+            <td>
+                <a href="/" 
+                   class="btn btn-warning"
+                   onclick="event.stopPropagation();
+                            event.preventDefault();
+                            active.load('{{ attr }}', 'html/admin-edit?action=change&serial={{ serial }}&attr={{ attr }}');">
+                    change
+                </a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        {% if tomany %}
+        <tr id="{{ attr }}-add">
+            <td>
+                <a href="/" class="btn btn-success"
+                    onclick="event.preventDefault();
+                             active.load('{{ attr }}-add', 'html/admin-edit?action=add&serial={{ serial }}&attr={{ attr }}');">Add existing one</a>
+            </td>
+            <td>
+                <a href="/" class="btn btn-primary"
+                    onclick="event.preventDefault();
+                             active.new_model(serial='{{ serial }}', attr='{{ attr }}', model=null, csrf='{{ csrf }}');">Add new one</a>
+            </td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>

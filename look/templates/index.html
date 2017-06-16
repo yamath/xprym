@@ -1,0 +1,53 @@
+{% load look_extras %}
+<div class="container">
+<dl class="row">
+  <dt class="col-sm-3">Username</dt>
+  <dd class="col-sm-9">{{ profile.username }} ({{ profile.mean|percent }})</dd>
+
+  <dt class="col-sm-3">Richiesti</dt>
+    <dd class="col-sm-9">
+        {% if profile.requirements|length == 0 %}
+        Hai svolto tutti gli esercizi richiesti
+        {% elif profile.requirements|length == 1 %}
+        <a href="/" onclick="event.preventDefault();active.load('board', 'html/question');">
+            Ti resta un solo esercizio da svolgere
+        </a>
+        {% else %}
+        <a href="/" onclick="event.preventDefault();active.load('board', 'html/question');">
+            Hai {{ profile.requirements|length }} esercizi da svolgere
+        </a>
+        {% endif %}
+    </dd>
+
+  <dt class="col-sm-12">Argomenti</dt>
+  <dd class="col-sm-12">
+  <table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Nome</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for topic in profile.topics %}
+    <tr onclick="active.load('board', 'html/question?topic={{ topic.serial }}');">
+      <td>{{ topic.mean|percent }}</td>
+      <td>{{ topic.name }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+  </dd>
+
+  <dt class="col-sm-3 text-truncate"></dt>
+  <dd class="col-sm-9"></dd>
+
+  <dt class="col-sm-3"></dt>
+  <dd class="col-sm-9">
+    <dl class="row">
+      <dt class="col-sm-4"></dt>
+      <dd class="col-sm-8"></dd>
+    </dl>
+  </dd>
+</dl>
+</div>

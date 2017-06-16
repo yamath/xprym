@@ -1,0 +1,31 @@
+
+<form class="form"
+      onsubmit="active.new_model();
+                return false;">
+{% csrf_token %}
+<input type="hidden" name="model" value="{{ model }}">
+<dl class="row">
+    {% for item in value_attrs %}
+    <dt class="col-sm-3">{{ item.attr }}</dt>
+    <dd class="col-sm-9" id="{{ item.attr }}">
+        {% if item.edit_text %}
+        <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="{{ item.attr }}" value="{{ value }}">
+        {% elif item.edit_textarea %}
+        <textarea class="form-control mb-2 mr-sm-2 mb-sm-0" name="{{ attr }}">{{ value }}</textarea>
+        {% endif %}
+    </dd>
+    {% endfor %}
+    {% for item in toone_attrs %}
+    <dt class="col-sm-3">{{ item.attr }}</dt>
+    <dd class="col-sm-9" id="{{ item.attr }}">
+        <select class="custom-select" name="{{ attr }}">
+            {% for value in item.values %}
+            <option value="{{ value.serial }}">{{ value.info }}</option>
+            {% endfor %}
+        </select>
+    </dd>
+    {% endfor %}
+  
+</dl>
+  <button type="submit" class="btn btn-primary">create</button>
+</form>

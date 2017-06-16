@@ -1,0 +1,19 @@
+{% load look_extras %}
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            {% for title in titles %}
+            <th>{{ title }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for model in models %}
+        <tr onclick="active.load('admin_board', 'html/admin-model?serial={{ model.serial }}');">
+            {% for title in titles %}
+            <td>{{ model|dictitem:title }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

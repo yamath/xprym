@@ -1,0 +1,13 @@
+{% load look_extras %}
+{% for attr in attrs %}
+<div class="row">
+    <div class="col-sm-2">
+        {{ attr }}
+    </div>
+    <div class="col-sm-10" id="{{ attr }}">
+        <script type="text/javascript">
+            active.load('{{ attr }}', 'html/admin-table?serial={{ serial }}&attr={{ attr }}');
+        </script>
+    </div>
+</div>
+{% endfor %}
