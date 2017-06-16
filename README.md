@@ -1,1 +1,3 @@
 # xprym
+
+Versione sperimentale
