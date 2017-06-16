@@ -27,7 +27,7 @@ class Node(Content):
 
 class Question(Content):
     kind = Required(str, default='open')
-    node = Required(Node, cascade_delete=True)
+    node = Required(Node)
     options = Set('Option')
     students = Set('Student')
 
